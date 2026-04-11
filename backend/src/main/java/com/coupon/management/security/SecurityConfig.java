@@ -61,6 +61,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/coupons/apply").authenticated()
                 .requestMatchers("/api/coupons/validate").authenticated()
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
