@@ -6,6 +6,9 @@ WORKDIR /app
 COPY backend/mvnw backend/mvnw.cmd backend/.mvn ./
 COPY backend/pom.xml ./
 
+# Make Maven wrapper executable
+RUN chmod +x ./mvnw
+
 # Download dependencies
 RUN ./mvnw dependency:go-offline
 
