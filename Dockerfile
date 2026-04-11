@@ -2,15 +2,15 @@ FROM eclipse-temurin:17-jdk-alpine
 
 WORKDIR /app
 
-# Copy Maven wrapper and pom.xml
-COPY mvnw mvnw.cmd .mvn ./
-COPY pom.xml ./
+# Copy Maven wrapper and pom.xml from backend directory
+COPY backend/mvnw backend/mvnw.cmd backend/.mvn ./
+COPY backend/pom.xml ./
 
 # Download dependencies
 RUN ./mvnw dependency:go-offline
 
-# Copy source code
-COPY src ./src
+# Copy source code from backend directory
+COPY backend/src ./src
 
 # Build the application
 RUN ./mvnw clean package -DskipTests
