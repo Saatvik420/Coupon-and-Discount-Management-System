@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Dynamic API base URL based on environment
 const API_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://coupon-backend.onrender.com/api' 
+  ? 'https://coupon-and-discount-management-system.onrender.com/api' 
   : 'http://localhost:8080/api';
 
 // Create axios instance with default config
