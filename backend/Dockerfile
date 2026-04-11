@@ -2,8 +2,21 @@ FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
-COPY target/*.jar app.jar
+# Copy Maven wrapper and pom.xml
+COPY mvnw mvnw.cmd .mvn ./
+COPY pom.xml ./
 
+# Download dependencies
+RUN ./mvnw dependency:go-offline
+
+# Copy source code
+COPY src ./src
+
+# Build the application
+RUN ./mvnw clean package -DskipTests
+
+# Expose port (Render will set PORT)
 EXPOSE 8080
 
-CMD ["java", "-jar", "app.jar"]
+# Run the application
+CMD ["java", "-jar", "target/coupon-management-0.0.1-SNAPSHOT.jar"]

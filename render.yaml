@@ -2,10 +2,10 @@ services:
   # Backend Spring Boot Service
   - type: web
     name: coupon-backend
-    env: java
+    env: docker
     plan: free
-    buildCommand: ./mvnw clean package -DskipTests
-    startCommand: java -jar target/coupon-management-0.0.1-SNAPSHOT.jar
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
     envVars:
       - key: JAVA_VERSION
         value: 17
@@ -17,7 +17,8 @@ services:
         sync: false
       - key: CORS_ALLOWED_ORIGINS
         value: https://coupon-frontend.netlify.app
+      - key: PORT
+        value: 8080
     healthCheckPath: /api/actuator/health
     autoDeploy: yes
     repo: https://github.com/YOUR_USERNAME/coupon-management.git
-    rootDir: backend
