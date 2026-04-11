@@ -160,16 +160,114 @@ After starting the application, you can create users through the signup page. Th
 
 ## Deployment
 
-### Backend Deployment (Render/Railway)
-1. Connect your Git repository
-2. Set environment variables for MongoDB connection
-3. Deploy with Maven build command
+### Quick Deployment Guide
 
-### Frontend Deployment (Vercel/Netlify)
-1. Connect your Git repository
-2. Set build command: `npm run build`
-3. Set output directory: `dist`
-4. Deploy
+This project is configured for easy deployment to:
+- **Backend**: Render.com (Java Spring Boot)
+- **Frontend**: Netlify.com (React)
+
+### Step 1: Prepare GitHub Repository
+
+1. **Initialize Git** (if not already done):
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+```
+
+2. **Create GitHub Repository**:
+   - Go to GitHub.com
+   - Create new repository: `coupon-management`
+   - Push your code:
+```bash
+git remote add origin https://github.com/YOUR_USERNAME/coupon-management.git
+git branch -M main
+git push -u origin main
+```
+
+### Step 2: Deploy Backend to Render
+
+1. **Go to Render.com** and sign up
+2. **Create New Web Service**:
+   - Connect your GitHub repository
+   - Select the `backend` folder as root directory
+   - Environment: `Java`
+   - Build Command: `./mvnw clean package -DskipTests`
+   - Start Command: `java -jar target/coupon-management-0.0.1-SNAPSHOT.jar`
+
+3. **Set Environment Variables**:
+```
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/coupon_management
+JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+CORS_ALLOWED_ORIGINS=https://YOUR_FRONTEND_URL.netlify.app
+SPRING_PROFILES_ACTIVE=production
+```
+
+4. **Deploy**: Click "Create Web Service" - Render will automatically deploy
+
+### Step 3: Deploy Frontend to Netlify
+
+1. **Go to Netlify.com** and sign up
+2. **Add New Site**:
+   - Connect your GitHub repository
+   - Build command: `npm run build`
+   - Publish directory: `dist`
+
+3. **Set Environment Variables** (if needed):
+```
+VITE_API_BASE_URL=https://YOUR_BACKEND_URL.onrender.com/api
+```
+
+4. **Deploy**: Click "Deploy Site" - Netlify will automatically deploy
+
+### Step 4: Update Configuration
+
+After deployment, update the backend URL in:
+- `src/services/api.jsx` (already configured for production)
+- Netlify environment variables
+
+### Step 5: Test Deployment
+
+1. **Backend**: Visit `https://YOUR_BACKEND_URL.onrender.com/api/actuator/health`
+2. **Frontend**: Visit `https://YOUR_FRONTEND_URL.netlify.app`
+3. **Test full flow**: Create user, login, create coupons, apply coupons
+
+### Deployment Scripts
+
+Use the provided scripts for easy deployment:
+
+```bash
+# Deploy backend (after Git setup)
+./scripts/deploy-backend.sh
+
+# Deploy frontend (requires netlify-cli)
+./scripts/deploy-frontend.sh
+```
+
+### Environment Variables
+
+Copy `.env.example` to `.env` and update values:
+
+```bash
+cp .env.example .env
+```
+
+### Troubleshooting
+
+**Backend Issues:**
+- Check Render logs for build errors
+- Verify MongoDB connection string
+- Check environment variables
+
+**Frontend Issues:**
+- Verify API URL is correct
+- Check Netlify build logs
+- Ensure CORS is properly configured
+
+**Common Issues:**
+- CORS errors: Update `CORS_ALLOWED_ORIGINS` in backend
+- API connection: Verify frontend API URL matches backend URL
+- Build failures: Check dependencies and Node.js version
 
 ## Important Business Rules
 

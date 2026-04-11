@@ -1,0 +1,23 @@
+services:
+  # Backend Spring Boot Service
+  - type: web
+    name: coupon-backend
+    env: java
+    plan: free
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/coupon-management-0.0.1-SNAPSHOT.jar
+    envVars:
+      - key: JAVA_VERSION
+        value: 17
+      - key: SPRING_PROFILES_ACTIVE
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://coupon-frontend.netlify.app
+    healthCheckPath: /api/actuator/health
+    autoDeploy: yes
+    repo: https://github.com/YOUR_USERNAME/coupon-management.git
+    rootDir: backend
