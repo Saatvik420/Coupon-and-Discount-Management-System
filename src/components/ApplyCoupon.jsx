@@ -42,12 +42,13 @@ const ApplyCoupon = () => {
   };
 
   useEffect(() => {
-    if (formData.code && formData.orderAmount) {
-      const timer = setTimeout(() => {
-        validateCoupon();
-      }, 500);
-      return () => clearTimeout(timer);
-    }
+    // Temporarily disabled automatic coupon validation
+    // if (formData.code && formData.orderAmount) {
+    //   const timer = setTimeout(() => {
+    //     validateCoupon();
+    //   }, 500);
+    //   return () => clearTimeout(timer);
+    // }
   }, [formData.code, formData.orderAmount]);
 
   const handleSubmit = async (e) => {

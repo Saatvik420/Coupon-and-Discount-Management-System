@@ -30,11 +30,12 @@ public class CouponController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/validate")
-    public ResponseEntity<Boolean> validateCoupon(@Valid @RequestBody CouponApplicationRequest request) {
-        boolean isValid = couponService.validateCoupon(request.getCode(), request.getOrderAmount());
-        return ResponseEntity.ok(isValid);
-    }
+    // Temporarily disabled coupon validation endpoint
+// @PostMapping("/validate")
+// public ResponseEntity<Boolean> validateCoupon(@Valid @RequestBody CouponApplicationRequest request) {
+//     boolean isValid = couponService.validateCoupon(request.getCode(), request.getOrderAmount());
+//     return ResponseEntity.ok(isValid);
+// }
 
     @GetMapping
     public ResponseEntity<List<Coupon>> getAllCoupons() {
