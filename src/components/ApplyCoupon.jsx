@@ -204,21 +204,21 @@ const ApplyCoupon = () => {
                       <div className="flex justify-between">
                         <span className="text-secondary">Discount:</span>
                         <div className="text-success">
-                          <div className="font-medium">-{formatUSD(result.discountAmount)}</div>
-                          <div className="text-xs text-gray-500">-{formatINR(result.discountAmount)}</div>
+                          <div className="font-medium">{formatUSD(result.discountAmount)}</div>
+                          <div className="text-xs text-gray-500">{formatINR(result.discountAmount)}</div>
                         </div>
                       </div>
                     </div>
                     <div className="border-l pl-4 space-y-2">
                       <div className="text-sm text-secondary mb-1">You Save:</div>
                       <div className="text-lg font-bold text-success">
-                        {formatUSD(result.discountAmount)}
+                        {formatUSD(result.originalAmount)}
                       </div>
                       <div className="text-sm text-gray-500">
-                        {formatINR(result.discountAmount)}
+                        {formatINR(result.originalAmount)}
                       </div>
                       <div className="text-xs text-primary mt-1">
-                        ({((result.discountAmount / result.originalAmount) * 100).toFixed(1)}% off)
+                        ({((result.originalAmount - result.finalAmount) / result.originalAmount * 100).toFixed(1)}% off)
                       </div>
                     </div>
                   </div>
