@@ -26,10 +26,10 @@ public class SwaggerConfig {
                                 .email("support@couponmanagement.com")))
                 .servers(List.of(
                         new Server()
-                                .url("https://coupon-and-discount-management-system.onrender.com")
+                                .url("https://coupon-and-discount-management-system.onrender.com/api")
                                 .description("Production Server"),
                         new Server()
-                                .url("http://localhost:8080")
+                                .url("http://localhost:8080/api")
                                 .description("Development Server")
                 ))
                 .addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
